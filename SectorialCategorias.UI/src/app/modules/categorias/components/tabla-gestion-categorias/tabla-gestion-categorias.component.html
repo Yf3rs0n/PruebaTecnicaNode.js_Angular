@@ -1,0 +1,33 @@
+<div class="card">
+    <p-table #dt1 [value]="categoriasDataTable" [tableStyle]="{ 'min-width': '60rem' }" [rows]="5" [paginator]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-button label="Crear" icon="pi pi-plus" (click)="openModal()"></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr class="flex justify-content-center">
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-categoria>
+            <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.tipo }}</td>
+                <td>{{ categoria.estado ? 'Activo' : 'Inactivo' }}</td>
+                <td>
+                    <div class="flex justify-content-center">
+                        <p-menu #menu [model]="items" [popup]="true" />
+                        <p-button (onClick)="menu.toggle($event); buildMenuItems(categoria)"  icon="pi pi-ellipsis-v"/>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-dialog header="Gestión de Categorías" [(visible)]="displayModal" [modal]="true" (onHide)="closeModal()" [style]="{ width: '50vw' }">
+    <app-modal-categorias></app-modal-categorias>
+</p-dialog>

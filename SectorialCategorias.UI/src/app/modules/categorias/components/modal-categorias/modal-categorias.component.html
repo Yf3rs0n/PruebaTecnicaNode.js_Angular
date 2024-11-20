@@ -1,0 +1,59 @@
+<div class="card">
+    <form class="p-fluid" #categoriaForm="ngForm" (ngSubmit)="enviarFormulario(categoriaForm)">
+        <p-fieldset legend="Formulario de Categorías">
+
+            <!-- Primer Select -->
+            <div class="p-field">
+                <label class="textLabel"><strong>Categoría</strong></label>
+                <p-dropdown [(ngModel)]="selectedCategoria" [options]="categorias"
+                    placeholder="Seleccione una categoría" name="categoria1" required appendTo="body">
+                </p-dropdown>
+            </div>
+            <br>
+            <!-- Condiciones para mostrar campos según la categoría seleccionada -->
+            <ng-container *ngIf="selectedCategoria === 'Categoria'">
+                <div class="p-field">
+                    <label for="descripcion"><strong>Nombre</strong></label>
+                    <input id="nombre" type="text" pInputText [(ngModel)]="descripcion" placeholder="Escriba un nombre"
+                        name="nombre" required>
+                </div>
+            </ng-container>
+            <!-- Crear subcategoría -->
+            <ng-container *ngIf="selectedCategoria === 'Subcategoria'">
+                <div class="p-field">
+                    <label for="descripcion"><strong>Nombre</strong></label>
+                    <input id="nombre" type="text" pInputText [(ngModel)]="descripcion" placeholder="Escriba un nombre"
+                        name="nombre" required>
+                </div>
+                <br>
+                <div class="p-field">
+                    <label for="categoria2"><strong>Categoría que pertenece</strong></label><br>
+                    <p-dropdown id="categoria2" [(ngModel)]="agrupacionCategoria" [options]="categoriasData"
+                        [filter]="true" optionLabel="nombre" optionValue="id" placeholder="Seleccione una categoría" name="categoria2" required appendTo="body">
+                    </p-dropdown>
+                </div>
+            </ng-container>
+            <!-- Crear tema -->
+            <ng-container *ngIf="selectedCategoria === 'Tema'">
+                <div class="p-field">
+                    <label for="descripcion"><strong>Nombre</strong></label>
+                    <input id="nombre" type="text" pInputText [(ngModel)]="descripcion" placeholder="Escriba un nombre"
+                        name="nombre" required>
+                </div>
+                <br>
+                <div class="p-field">
+                    <label for="categoria2"><strong>Subcategoría que pertenece</strong></label>
+                    <p-dropdown id="categoria2" [(ngModel)]="agrupacionCategoria" [options]="subCategoriasData"
+                        optionLabel="nombre" optionValue="id" placeholder="Seleccione una subcategoría" name="categoria2" required appendTo="body">
+                    </p-dropdown>
+                </div>
+            </ng-container>
+            <br>
+            <div class="p-field">
+                <p-button label="Crear" icon="pi pi-check" type="submit" [disabled]="!categoriaForm.valid">
+                </p-button>
+            </div>
+
+        </p-fieldset>
+    </form>
+</div>
